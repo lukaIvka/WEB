@@ -1,0 +1,146 @@
+﻿@using VebProj.Models
+@{
+    ViewBag.Title = "Profesor";
+}
+
+<h3>Welcome</h3>
+<h4>Profesor @ViewBag.profesor.ime</h4>
+<br />
+<p> Kreiraj ispit:</p>
+<form action="~/Profesor/Kreiraj" method="post">
+    <table border="1">
+        <tr><td>Profesor:</td><td>@ViewBag.profesor.ime</td></tr>
+        <tr>
+            <td>Izaberite predmet:</td>
+            <td>
+                <select id="predmet" name="predmet">
+                    <option value="">Select Predmet</option>
+                    @foreach (string s in ViewBag.profesor.predmeti)
+                    {
+                        <option value="@s">@s</option>
+                    }
+                </select>                
+            </td>
+        </tr>
+        <tr><td>Datum odrzavanja:</td><td><input type="datetime" name="datum" /></td></tr>
+        <tr><td>Naziv ucionice:</td><td><input type="text" name="ucionica" /></td></tr>
+        <tr>
+            <td>Rok:</td>
+            <td>
+                <input list="Rokovi" name="rokovi" />
+                <datalist id="Rokovi">
+                    <option value="JANUAR"></option>
+                    <option value="FEBRUAR"></option>
+                    <option value="APRIL"></option>
+                    <option value="JUN"></option>
+                    <option value="JUL"></option>
+                    <option value="AVGUST"></option>
+                    <option value="SEPTEMBARRT"></option>
+                    <option value="OKTOBAR"></option>
+                </datalist>
+            </td>
+        </tr>
+        <tr><td colspan="2"><input type="submit" value="Kreiraj" name="Kreiraj" /></td></tr>
+    </table>
+</form>
+
+<br />
+<br />
+
+<p>Ocijeni ispite</p>
+<form action="~/Profesor/Ocijeni" method="post">
+    <table border="1">
+        <tr>
+            <td>Ispit:</td>
+            <td>
+                <select id="ispit" name="ispit">
+                    <option value="">Select an Ispit</option>
+                    @{
+                        HashSet<string> prva = new HashSet<string>();
+                        foreach (Ispit i in ViewBag.profesor.ispiti)
+                        {
+                            foreach (Student s in ViewBag.studenti)
+                            {
+                                foreach (Ispit isp in s.prijavljeni)
+                                {
+                                    if (isp.profesor.Equals(i.profesor) && isp.predmet.Equals(i.predmet) && isp.rok.Equals(i.rok))
+                                    {
+                                        string opcija = $"{i.predmet} {i.datum}";
+                                        if (!prva.Contains(opcija))
+                                        {
+                                            prva.Add(opcija);
+                                        <option value="@i.predmet">@opcija</option>
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Student:</td>
+            <td>
+                <select id="student" name="student">
+                    @{
+                        HashSet<string> jedinstvena = new HashSet<string>();
+                    }
+                    <option value="">Select a Student</option>
+                    @foreach (Student s in ViewBag.studenti)
+                    {
+                        bool dodan = false;
+                        foreach (Ispit i in s.prijavljeni)
+                        {
+                            if (i.profesor.Equals(ViewBag.profesor.ime))
+                            {
+                                if (!jedinstvena.Contains(s.ime))
+                                {
+                                    jedinstvena.Add(s.ime);
+                                    dodan = true;
+                                    break;
+                                }
+                            }
+
+                        }
+                        if (dodan)
+                        {
+                            <option value="@s.ime">@s.ime</option>
+                        }
+                    }
+                    }
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Ocijena:</td>
+            <td>
+                <input list="Ocijene" name="ocijena" />
+                <datalist id="Ocijene">
+                    @for (int i = 5; i <= 10; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </datalist>
+            </td>
+        <tr><td colspan="2"><input type="submit" value="Ocijeni" /></td></tr>
+    </table>
+</form>
+<br />
+<p>Prikaz stanja ispita i ocjena</p>
+<form method="post" action="~/Profesor/Prikazi">
+    <input type="submit" value="Prikazi"/>
+</form>
+
+<br />
+
+<p>Pregled predmeta</p>
+<form>
+    @foreach (string s in ViewBag.profesor.predmeti)
+    {
+        <div>@s</div>
+    }
+</form>
+
+<br />
+<a href="/Home/Index"> Log Out </a>

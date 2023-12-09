@@ -1,0 +1,48 @@
+﻿@using VebProj.Models
+<head>
+    @{
+        ViewBag.Title = "Student";
+    }
+    <style>
+        td.povecaj {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h3>Welcome</h3>
+    <h4>Student @ViewBag.Student.ime</h4>
+
+    <p>Prijava ispita:</p>
+    <form action="~/Student/Prijava" method="post">
+        <table border="1">
+            <tr>
+                <td width="200">Izaberite ispit:</td>
+                <td width="180">
+                    <select id="ispit" name="ispit">
+                    <option value="">Select Ispit</option>
+                   @foreach (Profesor p in ViewBag.profesori)
+                    {
+                            foreach (Ispit i in p.ispiti)
+                            {
+                                <option value="@i">
+                                    @i
+                                </option>
+                            }
+                    }
+                    </select>
+                <td>
+                    <input type="checkbox" value="true" name="prijava" id="prijava" />
+                </td>
+            </tr>
+            <tr><td colspan="6" align="center"><input type="submit" value="Prijavi" name="Prijava" /></td> </tr>
+        </table>
+    </form>
+    <br />
+    <p>Pregled ispita</p>
+    <form action="~/Student/PregledIspita" method="post">
+        <input type="submit" value="Ocjene" name="pregled" />
+    </form>
+    <br />
+    <a href="~/Home">Log Out</a>
+</body>

@@ -1,0 +1,54 @@
+﻿@using VebProj.Models
+@{
+    ViewBag.Title = "ListajStudente";
+}
+
+<h2>Lista Studenata</h2>
+
+<form>
+    <table border="1">
+        <tr bgcolor="lightgrey" ><th>Ime:</th><th>Prezime:</th><th>Indeks:</th><th>Datum rodj:</th><th>Email:</th><th>Prijavljeni:</th><th>Polozeni:</th><th>Nepolozeni:</th></tr>
+        
+        @foreach (Student s in ViewBag.studenti)
+        {
+            <tr>
+                <td align="center">@s.ime</td>
+                <td align="center">@s.prezime</td>
+                <td align="center">@s.indexNum</td>
+                <td align="center">@s.datumRodjenja</td>
+                <td align="center">@s.email</td>
+                <td>
+                    
+                        @foreach (Ispit i in s.prijavljeni)
+                        {
+
+                         <p>@i.predmet</p>
+
+                        }
+                     
+                </td>
+                <td>
+                    @foreach (Ispit i in s.polozeni)
+                    {
+
+                        <p>@i.predmet</p>
+
+                    }
+                </td>
+                <td>
+                    @foreach (Ispit i in s.nepolozeni)
+                    {
+
+                    <p>@i.predmet</p>
+
+                    }
+                </td>
+            </tr>
+         }
+        
+        <tr>
+        </tr>
+    </table>
+    <br/>
+    <a href="~/Admin"> Nazad </a>
+</form>

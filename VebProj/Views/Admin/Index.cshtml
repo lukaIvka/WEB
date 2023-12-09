@@ -1,0 +1,89 @@
+﻿@using VebProj.Models
+@{
+    ViewBag.Title = "Admin";
+}
+
+<h3>Welcome</h3>
+<p>Admin @ViewBag.Admin.ime</p>
+
+
+<br />
+<p>Kreiranje novog studenta:</p>
+<form action="~/Admin/Kreiraj" method="post">
+    <table>
+        <tr><th>Korisnicko ime: </th><th><input type="text" name="KorisnickoIme" /></th></tr>
+        <tr><th>Broj indeksa: </th><th><input type="text" name="BrIndex" /></th></tr>
+        <tr><th>Sifra: </th><th><input type="password" name="Sifra" /></th></tr>
+        <tr><th>Ime: </th><th><input type="text" name="Ime" /></th></tr>
+        <tr><th>Prezime: </th><th><input type="text" name="Prezime" /></th></tr>
+        <tr><th>Datum rodjenja: </th><th><input type="date" name="DatumRodjenja" /></th></tr>
+        <tr><th>Elektronska Posta: </th><th><input type="text" name="Email" /></th></tr>
+        <tr><th><input type="submit" name="Dodaj" value="Kreiraj" /></th></tr>
+    </table>
+</form>
+    @if (ViewBag.Greska != null)
+    {
+        <p>
+            @ViewBag.Greska
+        </p>
+    }
+    @if (ViewBag.Greska1 != null)
+    {
+        <p>
+            @ViewBag.Greska1
+        </p>
+    }
+<br />
+<p>Azuriranje studenta:</p>
+<form action="~/Admin/Azuriraj" method="post">
+    <table>
+        <tr><th>Korisnicko ime: </th><th><input type="text" name="KorisnickoIme" /></th></tr>
+        <tr><th>Sifra: </th><th><input type="password" name="Sifra" /></th></tr>
+        <tr><th><input type="submit" name="Azuriraj" value="Azuriraj" /></th></tr>
+    </table>
+</form>
+    @if (ViewBag.Greska1 != null)
+    {
+        <div>
+            @ViewBag.Greska1
+        </div>
+    }
+    @if (ViewBag.Upozorenje != null)
+    {
+        <div>
+            @ViewBag.Upozorenje
+        </div>
+    }
+
+
+<br />
+<p>Brisanje studenta:</p>
+<form action="~/Admin/Obrisi" method="post">
+    <table>
+        <tr><th>Korisnicko ime: </th><th><input type="text" name="KorisnickoIme" /></th></tr>
+        <tr><th>Broj indeksa: </th><th><input type="text" name="brIndeksa" /></th></tr>
+        <tr><th><input type="submit" name="Obrisi" value="Obrisi" /></th></tr>
+    </table>
+</form>
+    @if (ViewBag.Greska1 != null)
+    {
+        <div>
+            @ViewBag.Greska1
+        </div>
+    }
+    @if (ViewBag.Upozorenje != null)
+    {
+        <div>
+            @ViewBag.Upozorenje
+        </div>
+    }
+<br />
+
+<form method="post" action="~/Admin/ListajStudente"> 
+    <input type="submit" value="Lista Studenata" name="Listaj"/>
+</form>
+<br />
+<br />
+
+
+<a href="/Home/Index"> Log Out </a>

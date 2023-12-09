@@ -1,0 +1,33 @@
+﻿@using VebProj.Models
+@{
+    ViewBag.Title = "PregledIspita";
+}
+
+<h2>Pregled Ispita</h2>
+<h4>Profesor @ViewBag.profesor.ime</h4>
+<form>
+    <table border="1">
+        <tr><td>Predmet:</td><td>Datum:</td><td>Ucionica:</td><td>Rok:</td></tr>
+        @foreach (Ispit i in ViewBag.profesor.ispiti)
+        {
+            <tr><td>@i.predmet</td><td>@i.datum</td><td>@i.ucionica</td><td>@i.rok</td></tr>
+        }
+    </table>
+</form>
+<br />
+
+<h4>Rezultati ispita</h4>
+<form>
+    <table border="1">
+        <tr><td>Ispit:</td><td>Student:</td><td>Ocijena:</td></tr>
+        @foreach (Rezultati r in ViewBag.rezultati) {
+            if (r.ispit.profesor == ViewBag.profesor.ime)
+            {
+            <tr><td>@r.ispit.predmet</td><td>@r.student.ime</td><td>@r.ocjena</td></tr>            
+            }
+        }
+    </table>
+</form>
+<br />
+
+<a href="~/Profesor">Nazad</a>

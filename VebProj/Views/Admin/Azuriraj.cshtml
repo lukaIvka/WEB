@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Azuriraj";
+}
+
+<h3>Azuriraj</h3>
+<p>Unesite podatke za azuriranje:</p>
+<form action="~/Admin/Azuriranje" method="post">
+    <table>
+        <tr><th>Korisnicko ime: </th><th><input type="text" name="KorisnickoIme" /></th></tr>
+        <tr><th>Broj indeksa: </th><th><input type="text" name="BrIndex" /></th></tr>
+        <tr><th>Sifra: </th><th><input type="password" name="Sifra" /></th></tr>
+        <tr><th>Ime: </th><th><input type="text" name="Ime" /></th></tr>
+        <tr><th>Prezime: </th><th><input type="text" name="Prezime" /></th></tr>
+        <tr><th>Datum rodjenja: </th><th><input type="date" name="DatumRodjenja" /></th></tr>
+        <tr><th>Elektronska Posta: </th><th><input type="text" name="Email" /></th></tr>
+        <tr><th><input type="submit" name="Azuriranje" value="Azuriraj" /></th></tr>
+    </table>
+    @if (ViewBag.Upozorenje != null)
+    {
+        <div>
+            @ViewBag.Upozorenje
+        </div>
+    }
+    @if (ViewBag.Upozorenje1 != null)
+    {
+        <div>
+            @ViewBag.Upozorenje1
+        </div>
+    }
+    @if (ViewBag.Greska1 != null)
+    {
+        <div>
+            @ViewBag.Greska1
+        </div>
+    }
+    <br />
+    <a href="~/Admin"> Nazad </a>
+</form>
